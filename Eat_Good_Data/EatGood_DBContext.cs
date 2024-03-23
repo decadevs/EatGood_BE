@@ -1,13 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EatGood_Domain.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Eat_Good_Data
 {
-    public class EatGood_DBContext :DbContext
+    public class EatGood_DBContext :IdentityDbContext<AppUser>
     {
         public EatGood_DBContext(DbContextOptions<EatGood_DBContext> options) : base(options)
         {
