@@ -1,10 +1,12 @@
 ﻿namespace EatGood_Domain.Entities
 {
-    public class Rating
+    public class Rating : BaseEntity
     {
-        public string AppUserId { get; set; } = string.Empty;
-        public int FoodItemId { get; set; }
+        public string AppUserId { get; set; } 
+        public string FoodItemId { get; set; }
         public int Value { get; set; }
         public DateTime Date { get; set; } = DateTime.Now;
+        public AppUser AppUser { get; set; }
+        public FoodItem FoodItem { get; set; }
     }
 }

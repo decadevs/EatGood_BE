@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace EatGood_Domain.Entities.Enums
 {
-    internal class TransactionType
+    public enum TransactionType
     {
     }
 }

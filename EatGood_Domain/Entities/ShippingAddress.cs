@@ -1,8 +1,12 @@
 ﻿namespace EatGood_Domain.Entities
 {
-    public class ShippingAddress
+    public class ShippingAddress : BaseEntity
     {
-        public string AppUserId { get; set; } = string.Empty;
-        public required Address Address { get; set; }
+        public string AppUserId { get; set; } 
+        public string Address { get; set; }
+
+        public AppUser AppUser { get; set; }
+
+
     }
 }
