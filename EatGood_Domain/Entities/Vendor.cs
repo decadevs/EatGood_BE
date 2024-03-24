@@ -4,16 +4,15 @@ namespace EatGood_Domain.Entities
 {
     public class Vendor: BaseEntity
     {
-        public string Name { get; set; } = string.Empty;
-        public string Description { get; set; } = string.Empty;
-        public string ContactEmail { get; set; } = string.Empty;
-        public string ContactPhone { get; set; } = string.Empty;
-        public string Address { get; set; } = string.Empty;
-        public List<FoodItem> Products { get; set; }
+        public string AppUserId { get; set; }
+        public string Name { get; set; } 
+        public string Description { get; set; } 
+        public string ContactEmail { get; set; } 
+        public string ContactPhone { get; set; } 
+        public string Address { get; set; } 
+        public IEnumerable<FoodItem> FoodItems { get; set; }
+        public IEnumerable<AppUser> Customers { get; set; }
 
-        public Vendor()
-        {
-            Products = new List<FoodItem>();
-        }
+       
     }
 }
