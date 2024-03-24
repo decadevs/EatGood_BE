@@ -1,5 +1,6 @@
 using Eat_Good_Data;
 using Eat_Good_Services;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
@@ -9,6 +10,8 @@ var config = builder.Configuration;
 builder.Services.AddControllers();
 
 builder.Services.AddDataDependencies(builder.Configuration);
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<EatGood_DBContext>()
+    .AddDefaultTokenProviders();
 builder.Services.AddServiceDependencies(builder.Configuration);
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
