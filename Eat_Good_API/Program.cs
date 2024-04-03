@@ -1,9 +1,14 @@
 using Eat_Good_Data;
 using Eat_Good_Services;
 using Microsoft.AspNetCore.Identity;
+using NLog;
+using NLog.Web;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
+
+var configuration = builder.Configuration;
+var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
 // Add services to the container.
 
