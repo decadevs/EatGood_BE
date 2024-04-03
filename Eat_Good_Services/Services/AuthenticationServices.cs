@@ -63,13 +63,13 @@ namespace Eat_Good_Services.Services
             };
             try
             {
-                var token = "";
+                //var token = "";
 
                 var result = await _userManager.CreateAsync(appUser, appUserCreateDto.Password);
                 if (result.Succeeded)
                 {
-                    await _userManager.AddToRoleAsync(appUser, "User");
-                    token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
+                    //await _userManager.AddToRoleAsync(appUser, "User");
+                    //token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
 
 
 

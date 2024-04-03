@@ -11,7 +11,10 @@ namespace Eat_Good_Data
         {
             
         }
-
+        public EatGood_DBContext()
+        {
+            
+        }
         public DbSet<AppUser> Users { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<Customer> Customers { get; set; }
