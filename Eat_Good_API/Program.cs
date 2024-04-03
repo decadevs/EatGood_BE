@@ -1,6 +1,8 @@
 using Eat_Good_Data;
 using Eat_Good_Services;
+using EatGood_Domain.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using NLog;
 using NLog.Web;
 
@@ -10,6 +12,16 @@ var config = builder.Configuration;
 var configuration = builder.Configuration;
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
+
+
+
+//Registration of Db
+builder.Services.AddDbContext<EatGood_DBContext>(options =>
+options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<EatGood_DBContext>()
+                .AddDefaultTokenProviders();
 // Add services to the container.
 
 builder.Services.AddControllers();

@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Eat_Good_Data
 {
-    public class EatGood_DBContext :IdentityDbContext<IdentityUser>
+    public class EatGood_DBContext :IdentityDbContext<AppUser>
     {
         public EatGood_DBContext(DbContextOptions<EatGood_DBContext> options) : base(options)
         {

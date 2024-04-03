@@ -1,4 +1,5 @@
 ﻿using Eat_Good_Data.Repositories.Generic.Interface;
+using Eat_Good_Services.Interfaces.Services;
 using EatGood_Domain.DTOs;
 using EatGood_Domain.Entities;
 using EatGood_Domain.ResponseSystem;
@@ -13,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace Eat_Good_Services.Services
 {
-    public class AuthenticationServices
+    public class AuthenticationServices : IAuthenticationServices
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly UserManager<AppUser> _userManager;
@@ -40,7 +41,7 @@ namespace Eat_Good_Services.Services
             }
 
             var userr = await _unitOfWork.UserRepository.GetFirstOrDefaultAsync(x => x.PhoneNumber == appUserCreateDto.PhoneNumber);
-            if (userr == null)
+            if (userr != null)
             {
                 return new Result<RegisterResponseDto>
                 {
@@ -92,7 +93,7 @@ namespace Eat_Good_Services.Services
                             ErrorMessage = "User created successfully.",
                             Content = response,
                             StatusCode = StatusCodes.Status201Created
-                        };   //.Success(response, "User registered successfully. Please click on the link sent to your email to confirm your account", StatusCodes.Status201Created);
+                        };   
                     }
                     else
                     {

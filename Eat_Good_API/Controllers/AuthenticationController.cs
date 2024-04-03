@@ -22,33 +22,20 @@ namespace Eat_Good_API.Controllers
         {
             if (!ModelState.IsValid)
             {
-               // return BadRequest(Result<string>.Failed("Invalid model state.", StatusCodes.Status400BadRequest, ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList()));
-                return BadRequest(Result<string>
-                {
-                    IsSuccess = false,
-                    ErrorMessage = "User with this phone number already exists.",
-                    Content = null,
-                    StatusCode = StatusCodes.Status400BadRequest
-
-                });
+                return BadRequest(new { Message = "Invalid model state.", StatusCode = StatusCodes.Status400BadRequest });
             }
-
-            // Call registration service
+                       
             var registrationResult = await _authenticationService.RegisterAsync(appUserCreateDto);
 
-
-
-            if (registrationResult.Succeeded)
+            if (registrationResult.IsSuccess)
             {
-                var data = registrationResult.Data;
-                //  _backgroundJobClient.Enqueue(() => Console.WriteLine(data));
-                var confirmationLink = GenerateConfirmEmailLink(data.Id, data.Token);
-                return Ok(await _emailServices.SendEmailAsync(confirmationLink, data.Email, data.Id));
+                return Ok(new { Message = "User registered successfully." });
             }
             else
             {
-                return BadRequest(new { Message = registrationResult.Message, Errors = registrationResult.Errors });
+                return BadRequest(new { Message = registrationResult.ErrorMessage, Errors = registrationResult.Error?.Message });
             }
         }
+
     }
 }

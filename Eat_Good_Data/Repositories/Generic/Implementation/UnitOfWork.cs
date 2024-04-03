@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Eat_Good_Data.Repositories.Generic.Implementation
 {
-    public class UnitOfWork
+    public class UnitOfWork : IUnitOfWork
     {
         private readonly EatGood_DBContext _dBContext;
 
