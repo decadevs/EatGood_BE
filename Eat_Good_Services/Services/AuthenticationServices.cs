@@ -66,12 +66,7 @@ namespace Eat_Good_Services.Services
                 //var token = "";
 
                 var result = await _userManager.CreateAsync(appUser, appUserCreateDto.Password);
-                if (result.Succeeded)
-                {
-                    //await _userManager.AddToRoleAsync(appUser, "User");
-                    //token = await _userManager.GenerateEmailConfirmationTokenAsync(appUser);
-
-
+               
 
                     if (result.Succeeded)
                     {
@@ -106,11 +101,7 @@ namespace Eat_Good_Services.Services
                             StatusCode = StatusCodes.Status400BadRequest
                         };
                     }
-                }
-                else
-                {
-                    return new Result<RegisterResponseDto> { IsSuccess = false, ErrorMessage = "User with this phone number already exists.", Content = null, StatusCode = StatusCodes.Status400BadRequest };
-                }
+               
             }
             catch (Exception ex)
             {
