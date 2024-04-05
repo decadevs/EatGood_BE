@@ -1,6 +1,5 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace EatGood_Domain.Entities
 {
@@ -13,6 +12,8 @@ namespace EatGood_Domain.Entities
         public bool IsDeleted { get; set; }
         public string ImageUrl { get; set; } = string.Empty;
         public DateTime DateModified { get; set; }
+        public DateTime LastLogin { get; set; } = DateTime.Now;
+        public string PasswordResetToken { get; set; }
         //public IEnumerable<Order>? Orders { get; set; }
     }
 }

@@ -1,21 +1,30 @@
+using Eat_Good_API;
+using Eat_Good_API.Configurations;
 using Eat_Good_Data;
 using Eat_Good_Services;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 var config = builder.Configuration;
 
 // Add services to the container.
-
 builder.Services.AddControllers();
-
-builder.Services.AddDataDependencies(builder.Configuration);
-builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<EatGood_DBContext>()
-    .AddDefaultTokenProviders();
+builder.Services.ConfigureAuthentication(builder.Configuration);
 builder.Services.AddServiceDependencies(builder.Configuration);
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthentication();
+builder.Services.AddAuthorization();
+builder.Services.ConfigureApplicationCookie(op => op.LoginPath = "/UserAuthentication/Login");
+
+// Seed roles and super admin user
+builder.Services.AddScoped<Seeder>(); // Register the Seeder class
+using (var scope = builder.Services.BuildServiceProvider().CreateScope())
+{
+    Seeder.SeedRolesAndSuperAdmin(scope.ServiceProvider);
+}
+
 
 var app = builder.Build();
 
@@ -28,6 +37,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
