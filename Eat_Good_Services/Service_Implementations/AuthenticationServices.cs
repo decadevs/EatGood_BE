@@ -316,7 +316,7 @@ namespace Eat_Good_Services.Service_Implementations
                 switch (result)
                 {
                     case { Succeeded: true }:
-                        var role = (await _userManager.GetRolesAsync(user)).First();
+                        var role = (await _userManager.GetRolesAsync(user)).FirstOrDefault();
                         user.LastLogin = DateTime.Now;
                         await _repository.UpdateAsync(user);
 

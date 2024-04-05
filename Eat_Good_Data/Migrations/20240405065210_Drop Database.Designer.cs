@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Eat_Good_Data.Migrations
 {
     [DbContext(typeof(EatGood_DBContext))]
-    [Migration("20240328084533_ResetToken")]
-    partial class ResetToken
+    [Migration("20240405065210_Drop Database")]
+    partial class DropDatabase
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
