@@ -15,7 +15,7 @@ namespace Eat_Good_Data
     {
         public static IServiceCollection AddDataDependencies(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContextPool<EatGood_DBContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultDbConnection")));
+            services.AddDbContext<EatGood_DBContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultDbConnection")));
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
