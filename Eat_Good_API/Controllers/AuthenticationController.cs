@@ -37,5 +37,29 @@ namespace Eat_Good_API.Controllers
             }
         }
 
+
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(AppUserLoginDto loginDTO)
+        {
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(x => x.Errors).Select(x => x.ErrorMessage).ToList();
+                return BadRequest(new Result<string>
+                {
+                    Content = null,
+                    Error = new Error
+                    {
+                        Message = "Invalid model state.",
+                        Type = "errors",
+                    },
+                    IsSuccess = false
+                });
+            }
+
+            return Ok(await _authenticationService.LoginAsync(loginDTO));
+        }
+
+
     }
 }
