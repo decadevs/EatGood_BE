@@ -67,6 +67,7 @@ builder.Services.AddIdentity<AppUser, IdentityRole>()
 builder.Services.AddControllers();
 
 builder.Services.AddDataDependencies(builder.Configuration);
+builder.Services.AddServiceDependencies(builder.Configuration);
 
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
