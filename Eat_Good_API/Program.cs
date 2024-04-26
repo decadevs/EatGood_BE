@@ -20,6 +20,16 @@ var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
 
+//Registration of Db
+builder.Services.AddDbContext<EatGood_DBContext>(options =>
+options.UseSqlServer(configuration.GetConnectionString("DefaultDbConnection")));
+
+builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<EatGood_DBContext>()
+                .AddDefaultTokenProviders();
+// Add services to the container.
+
+
 
 var jwtSecret = configuration.GetSection("JwtSettings:Secret").Value;
 
@@ -55,14 +65,6 @@ builder.Services.AddAuthentication(options =>
 builder.Services.AddScoped<IAuthenticationServices, AuthenticationServices>();
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
-//Registration of Db
-builder.Services.AddDbContext<EatGood_DBContext>(options =>
-options.UseSqlServer(configuration.GetConnectionString("DefaultConnections")));
-
-builder.Services.AddIdentity<AppUser, IdentityRole>()
-                .AddEntityFrameworkStores<EatGood_DBContext>()
-                .AddDefaultTokenProviders();
-// Add services to the container.
 
 builder.Services.AddControllers();
 
