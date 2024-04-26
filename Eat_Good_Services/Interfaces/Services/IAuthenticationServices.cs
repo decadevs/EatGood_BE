@@ -13,5 +13,7 @@ namespace Eat_Good_Services.Interfaces.Services
     public interface IAuthenticationServices
     {
         Task<Result<RegisterResponseDto>> RegisterAsync(AppUserCreateDto appUserCreateDto);
+        Task<Result<LoginResponseDto>> LoginAsync(AppUserLoginDto loginDTO);
     }
 }
+

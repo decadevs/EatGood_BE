@@ -6,16 +6,50 @@ using Eat_Good_Services;
 using Eat_Good_Services.Interfaces.Services;
 using Eat_Good_Services.Services;
 using EatGood_Domain.Entities;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using NLog;
 using NLog.Web;
+using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 //var config = builder.Configuration;
 
 var configuration = builder.Configuration;
 var logger = LogManager.Setup().LoadConfigurationFromAppSettings().GetCurrentClassLogger();
+
+
+var jwtSecret = configuration.GetSection("JwtSettings:Secret").Value;
+
+
+var tokenValidationParameters = new TokenValidationParameters
+{
+    ValidateAudience = true,
+    ValidateIssuer = true,
+    ValidateLifetime = true,
+    ValidateIssuerSigningKey = true,
+    ValidAudience = configuration.GetSection("JwtSettings:ValidAudience").Value,
+    ValidIssuer = configuration.GetSection("JwtSettings:ValidIssuer").Value,
+    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtSecret)),
+    ClockSkew = TimeSpan.Zero
+};
+
+builder.Services.AddSingleton(tokenValidationParameters);
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+    options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.SaveToken = true;
+    options.TokenValidationParameters = tokenValidationParameters;
+});
+
 
 
 builder.Services.AddScoped<IAuthenticationServices, AuthenticationServices>();
@@ -54,9 +88,10 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHttpsRedirection();
-
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
 
 app.Run();
+

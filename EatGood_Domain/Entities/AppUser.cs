@@ -11,7 +11,7 @@ namespace EatGood_Domain.Entities
         public DateTime CreatedAt { get; set; } = DateTime.Now;
         public string Address { get; set; }
         public bool IsDeleted { get; set; }
-        public string ImageUrl { get; set; } = string.Empty;
+        public string ImageUrl { get; set; } = string.Empty;       
         public DateTime DateModified { get; set; }
         //public IEnumerable<Order>? Orders { get; set; }
     }
