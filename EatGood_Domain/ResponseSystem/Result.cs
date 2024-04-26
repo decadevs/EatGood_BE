@@ -18,5 +18,9 @@ namespace EatGood_Domain.ResponseSystem
         public bool IsSuccess { get; set; } = true;
         public DateTime RequestTime { get; set; } = DateTime.UtcNow;
         public DateTime ResponseTime { get; set; } = DateTime.UtcNow;
+        public int StatusCode { get; set; } = 200;
+
+       
+        
     }
 }
